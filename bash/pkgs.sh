@@ -171,7 +171,8 @@ if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Programing Packages -----------/"
     echo "${normal}"
     echo "$(sudo apt-get install python3-pip git firefox-dev)"
-    echo "$(pip install autopep8 pandas jupyterlab viola pylint scipy matplotlib seaborn)"
+    echo "$(pip install autopep8 pandas jupyterlab viola pylint scipy matplotlib seaborn streamlit plotly psycopg2 requests tweepy)
+numpy)"
     echo "$(snap install code --classic)"
     echo "$(snap install chromium)"
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
