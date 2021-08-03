@@ -172,8 +172,8 @@ if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${normal}"
     sudo apt-get install python3-pip git -yy
     sudo pip install autopep8 pandas jupyterlab viola pylint scipy matplotlib seaborn
-    sudo snap install code --classic -yy
-    sudo snap install chromium -yy
+    sudo snap install code --classic
+    sudo snap install chromium
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
     echo "${normal}"
