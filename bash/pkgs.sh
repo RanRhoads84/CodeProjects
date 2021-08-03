@@ -27,13 +27,14 @@ while [ "$answer" != "y" -a "$answer" != "yes" -a "$answer" != "n" -a "$answer" 
 done
 #######  if Statement Execution #######
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
-    echo "$(sudo gpasswd -a $USER plugdev)"
+    sudo gpasswd -a $USER plugdev
     echo "${bold}${purple}Adding PPA's"
     echo "${normal}"
-    echo "$(sudo add-apt-repository ppa:rvm/smplayer -y)"
-    echo "$(sudo add-apt-get -V-repository ppa:polychromatic/stable -y)"
-    echo "$(sudo add-apt-get -V-repository ppa:openrazer/stable -y)"
-    echo "$(sudo add-apt-get -V-repository ppa:lutris-team/lutris -y) ; $(clear)"
+    sudo add-apt-repository ppa:rvm/smplayer -y
+    sudo add-apt-repository ppa:polychromatic/stable -y
+    sudo add-apt-repository ppa:openrazer/stable -y
+    sudo add-apt-repository ppa:lutris-team/lutris -y
+    echo $(clear)
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping PPA's and User Add"
     echo "${normal}"
@@ -41,8 +42,8 @@ fi
 #######  Starting Update  #######
 echo "${bold}${blue}/---------- Updating ------------/"
 echo "${normal}"
-echo $(sleep 1)
-echo "$(sudo apt-get update)"
+sleep 1
+sudo apt-get update
 echo $(clear)
 
 #######   Base Packages Question   #######
@@ -61,7 +62,7 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Installing Basic Packages -----------/"
     echo "${normal}"
-    echo "$(sudo apt-get install virtualbox snapd firefox)"
+    sudo apt-get install virtualbox snapd firefox -yy
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
     echo "${normal}"
@@ -82,7 +83,7 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Installing Office Suite -----------/"
     echo "${normal}"
-    echo "$(sudo apt-get install libreoffice scribus scribus-template calibre evolution calligra)"
+    sudo apt-get install libreoffice scribus scribus-template calibre evolution calligra -yy
 
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
@@ -104,8 +105,7 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Installing Open Razer -----------/"
     echo "${normal}"
-    echo "$(sudo apt-get install openrazer-meta)"
-    echo "$(sudo apt-get install polychromatic)"
+    sudo apt-get install openrazer-meta polychromatic -yy
 
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
@@ -127,7 +127,7 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Installing Audio/Visual Packages-----------/"
     echo "${normal}"
-    echo "$(sudo apt-get install kdenlive pithos smplayer smplayer-themes smtube gimp blender)"
+    sudo apt-get install kdenlive pithos smplayer smplayer-themes smtube gimp blender -yy
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
     echo "${normal}"
@@ -148,7 +148,7 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Installing Game Packages-----------/"
     echo "${normal}"
-    echo "$(sudo apt-get install steam gbrainy 0ad supertux supertuxkart kdegames lutris)"
+    sudo apt-get install steam gbrainy 0ad supertux supertuxkart kdegames lutris -yy
 
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
@@ -170,11 +170,10 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Programing Packages -----------/"
     echo "${normal}"
-    echo "$(sudo apt-get install python3-pip git firefox-dev)"
-    echo "$(pip install autopep8 pandas jupyterlab viola pylint scipy matplotlib seaborn streamlit plotly psycopg2 requests tweepy)
-numpy)"
-    echo "$(snap install code --classic)"
-    echo "$(snap install chromium)"
+    sudo apt-get install python3-pip git -yy
+    sudo pip install autopep8 pandas jupyterlab viola pylint scipy matplotlib seaborn
+    sudo snap install code --classic -yy
+    sudo snap install chromium -yy
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
     echo "${normal}"
@@ -195,7 +194,7 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Pentesting Packages -----------/"
     echo "${normal}"
-    echo "$(sudo apt-get install openvpn forensics-full nmap zmap hashcat john hydra nikto)"
+    sudo apt-get install openvpn forensics-full nmap zmap hashcat john hydra nikto -yy
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
     echo "${normal}"
@@ -216,7 +215,7 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${blue}/---------- Update/Upgrade & Autoremove ------------/"
     echo "${normal}"
-    echo "$(sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove)"
+    sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove -yy
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Update/Upgrade"
     echo "${normal}"
@@ -236,5 +235,5 @@ echo "${bold}${orange}MetaSploit "
 echo ""${normal}"${underline}${red}https://github.com/rapid7/metasploit-framework/wiki/Nightly-Installers "
 echo "${bold}${red}/---------- Now Install your Downloaded Packages -------------/"
 echo "${normal}"
-echo "$(cd ~/Downloads/)"
+pushd ~/Downloads/
 $SHELL
