@@ -63,8 +63,9 @@ if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Installing Basic Packages -----------/"
     echo "${normal}"
     sudo apt-get install virtualbox snapd flatpak gnome-software-plugin-flatpak -yy
-    flatpak remote-add --if-not-exist flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install flathub org.mozilla.firefox
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    sudo flatpak install flathub org.mozilla.firefox
+    sudo flatpak install firefox
     sudo snap install chromium
     sudo snap install code --classic
     sudo snap install remmina
