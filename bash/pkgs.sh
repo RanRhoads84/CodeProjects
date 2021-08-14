@@ -13,7 +13,7 @@ default=$(echo -en "\e[39m")
 DEFAULT=$(echo -en "\e[49m")
 underline=$(echo -en "\e[4m")
 
-#######  Add User-Group and PPA  #######
+#######  Add User-Group and PPA and Repos #######
 echo "${bold}${purple}Do You want to add ppa's and User Group for Razer and Lutris? (Y/n) (Select yes if you want to add the software later)"
 echo "${normal}"
 read input
@@ -62,7 +62,13 @@ done
 if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${bold}${green}/---------- Installing Basic Packages -----------/"
     echo "${normal}"
-    sudo apt-get install virtualbox snapd firefox -yy
+    sudo apt-get install virtualbox snapd flatpak gnome-software-plugin-flatpak -yy
+    flatpak remote-add --if-not-exist flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub org.mozilla.firefox
+    sudo snap install chromium
+    sudo snap install code --classic
+    sudo snap install remmina
+    sudo snap install gotop
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
     echo "${normal}"
@@ -172,8 +178,6 @@ if [ "$answer" = "y" -o "$answer" = "yes" ]; then
     echo "${normal}"
     sudo apt-get install python3-pip git -yy
     sudo pip install autopep8 pandas jupyterlab viola pylint scipy matplotlib seaborn
-    sudo snap install code --classic
-    sudo snap install chromium
 elif [ "$answer" = "n" -o "$answer" = "no" ]; then
     echo "${bold}${red}Skipping Packages"
     echo "${normal}"
@@ -234,6 +238,27 @@ echo ""${normal}"${underline}${red}https://portswigger.net/burp/communitydownloa
 echo "${bold}${orange}MetaSploit "
 echo ""${normal}"${underline}${red}https://github.com/rapid7/metasploit-framework/wiki/Nightly-Installers "
 echo "${bold}${red}/---------- Now Install your Downloaded Packages -------------/"
+
+#######  Reboot  #######
+echo "${bold}${purple}Do you want to Reboot nao to activate changes? (y/n)"
 echo "${normal}"
-pushd ~/Downloads/
-$SHELL
+read input
+answer=$(echo $input | tr '[A-Z]' '[a-z]')
+#######  While Loop to Force Correct Answers #######
+while [ "$answer" != "y" -a "$answer" != "yes" -a "$answer" != "n" -a "$answer" != "no" ]; do
+    echo "${bold}${red}${underline}Answer Yes or No"
+    echo "${normal}"
+    read input
+    answer=$(echo $input | tr '[A-Z]' '[a-z]')
+done
+#######  if Statement Execution #######
+if [ "$answer" = "y" -o "$answer" = "yes" ]; then
+    echo "${bold}${blue}/---------- Update/Upgrade & Autoremove ------------/"
+    echo "${normal}"
+    reboot
+elif [ "$answer" = "n" -o "$answer" = "no" ]; then
+    echo "${bold}${red}Skipping Reboot"
+    echo "${normal}"
+fi
+
+exit
